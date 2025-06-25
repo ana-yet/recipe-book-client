@@ -1,5 +1,5 @@
 # Recipe Book - Culinary Collection Platform 🍳📖
-###  Live Link: recipe-book-525e2.web.app
+###  [Live Site](https://recipe-book-525e2.web.app/)
 [![Live Demo](https://i.ibb.co/xSkz7vsx/rcp-1.png)](https://recipe-book-525e2.web.app/)
 
 A modern full-stack recipe-sharing platform for food lovers to explore, create, and manage recipes. Whether you're a student looking for quick meals or a home chef crafting traditional dishes, Recipe Book brings the culinary world to your fingertips with user authentication, dynamic UI, personalized dashboards, and smooth interactions.
