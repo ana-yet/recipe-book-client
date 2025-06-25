@@ -1,0 +1,116 @@
+[
+  {
+    "title": "Masala Omelette",
+    "description": "A quick, protein-packed Indian-style omelette with onions, chili, and spices. Perfect for breakfast or a lazy dinner.",
+    "ingredients": [
+      { "name": "Eggs", "quantity": 2, "unit": "pieces" },
+      { "name": "Onion", "quantity": 2, "unit": "tbsp (finely chopped)" },
+      { "name": "Green Chili", "quantity": 1, "unit": "piece (chopped)" },
+      { "name": "Coriander Leaves", "quantity": 1, "unit": "tbsp (chopped)" },
+      { "name": "Salt", "quantity": 0.25, "unit": "tsp" },
+      { "name": "Turmeric", "quantity": 0.25, "unit": "tsp" },
+      { "name": "Oil", "quantity": 1, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Beat eggs in a bowl with salt and turmeric.",
+      "Add chopped onions, green chili, and coriander leaves. Mix well.",
+      "Heat oil in a pan, pour the mixture, and cook on medium heat for 2-3 minutes.",
+      "Flip and cook the other side until golden. Serve with bread or roti."
+    ],
+    "prepTime": "5 mins",
+    "cookTime": "5 mins",
+    "totalTime": "10 mins",
+    "servings": 1,
+    "difficulty": "Easy",
+    "tags": ["bachelor", "breakfast", "vegetarian", "quick"],
+    "image": "https://i.ibb.co/20JLZH9m/omelette.jpg"
+  },
+  {
+    "title": "Simple Tadka Dal",
+    "description": "A comforting lentil dish with a flavorful tempering of cumin, garlic, and chili. Pairs perfectly with rice or roti.",
+    "ingredients": [
+      {
+        "name": "Yellow Lentils (Moong Dal)",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      { "name": "Turmeric", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Cumin Seeds", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Garlic", "quantity": 2, "unit": "cloves (chopped)" },
+      { "name": "Red Chili", "quantity": 1, "unit": "piece" },
+      { "name": "Tomato", "quantity": 1, "unit": "small (chopped)" },
+      { "name": "Oil", "quantity": 1, "unit": "tbsp" },
+      { "name": "Salt", "quantity": 0.5, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Rinse lentils and cook in 2 cups water with turmeric until soft (15-20 mins).",
+      "Heat oil in a pan. Add cumin, garlic, and red chili. Sauté until fragrant.",
+      "Add tomatoes and cook until mushy.",
+      "Mix the tempering into the cooked lentils. Simmer for 5 mins. Serve hot."
+    ],
+    "prepTime": "5 mins",
+    "cookTime": "25 mins",
+    "totalTime": "30 mins",
+    "servings": 2,
+    "difficulty": "Easy",
+    "tags": ["bachelor", "lunch", "dinner", "vegetarian", "budget"],
+    "image": "https://i.ibb.co/Y4bG1V1y/dal.jpg"
+  },
+  {
+    "title": "Spiced Scrambled Eggs (Egg Bhurji)",
+    "description": "A fiery scrambled egg dish with onions, tomatoes, and spices. Ready in 10 minutes!",
+    "ingredients": [
+      { "name": "Eggs", "quantity": 3, "unit": "pieces" },
+      { "name": "Onion", "quantity": 0.5, "unit": "small (chopped)" },
+      { "name": "Tomato", "quantity": 1, "unit": "small (chopped)" },
+      { "name": "Green Chili", "quantity": 1, "unit": "piece (chopped)" },
+      { "name": "Turmeric", "quantity": 0.25, "unit": "tsp" },
+      { "name": "Red Chili Powder", "quantity": 0.25, "unit": "tsp" },
+      { "name": "Oil", "quantity": 1, "unit": "tbsp" },
+      { "name": "Salt", "quantity": 0.25, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat oil in a pan. Sauté onions and green chili until translucent.",
+      "Add tomatoes and spices. Cook until soft.",
+      "Beat eggs in a bowl and pour into the pan.",
+      "Scramble until fully cooked. Garnish with coriander leaves."
+    ],
+    "prepTime": "5 mins",
+    "cookTime": "10 mins",
+    "totalTime": "15 mins",
+    "servings": 1,
+    "difficulty": "Easy",
+    "tags": ["bachelor", "breakfast", "quick", "high-protein"],
+    "image": "https://i.ibb.co/21KQ0SMr/egg.jpg"
+  },
+  {
+    "title": "Bachelor's Chicken Curry",
+    "description": "A one-pot chicken curry with minimal spices and maximum flavor. Ideal for beginners!",
+    "ingredients": [
+      { "name": "Chicken", "quantity": 300, "unit": "grams (bone-in)" },
+      { "name": "Onion", "quantity": 1, "unit": "medium (sliced)" },
+      { "name": "Tomato", "quantity": 1, "unit": "medium (chopped)" },
+      { "name": "Ginger-Garlic Paste", "quantity": 1, "unit": "tbsp" },
+      { "name": "Turmeric", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Red Chili Powder", "quantity": 1, "unit": "tsp" },
+      { "name": "Cumin Powder", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Coriander Powder", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Oil", "quantity": 2, "unit": "tbsp" },
+      { "name": "Salt", "quantity": 0.5, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Marinate chicken with turmeric, chili powder, and salt for 10 mins.",
+      "Heat oil in a pot. Sauté onions until golden.",
+      "Add ginger-garlic paste and cook for 2 mins.",
+      "Add tomatoes and spices. Cook until oil separates.",
+      "Add chicken and 1 cup water. Simmer for 25-30 mins. Serve with rice."
+    ],
+    "prepTime": "10 mins",
+    "cookTime": "30 mins",
+    "totalTime": "40 mins",
+    "servings": 2,
+    "difficulty": "Medium",
+    "tags": ["bachelor", "dinner", "non-vegetarian", "one-pot"],
+    "image": "https://i.ibb.co/qMGzQcxB/chicken.jpg"
+  }
+]
