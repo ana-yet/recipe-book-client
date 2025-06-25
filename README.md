@@ -1,16 +1,21 @@
 # Recipe Book - Culinary Collection Platform 🍳📖
-
+###  Live Link: recipe-book-525e2.web.app
 [![Live Demo](https://i.ibb.co/xSkz7vsx/rcp-1.png)](https://recipe-book-525e2.web.app/)
 
-A full-stack recipe sharing platform with authentication, dynamic content management, and interactive features. Built for food enthusiasts to discover, share, and manage culinary creations.
+A modern full-stack recipe-sharing platform for food lovers to explore, create, and manage recipes. Whether you're a student looking for quick meals or a home chef crafting traditional dishes, Recipe Book brings the culinary world to your fingertips with user authentication, dynamic UI, personalized dashboards, and smooth interactions.
 
-## Key Features 🚀
+## 🧾 Project Description
+Recipe Book is built for aspiring and experienced cooks alike to:
 
-### 🔐 User Authentication
+-📤 Share their favorite recipes.
 
-- Firebase-powered login/logout system
-- Protected routes for recipe management
-- User profile indicator with interactive logout dropdown
+-📚 Explore categorized dishes.
+
+-💖 Like and interact with others’ creations.
+
+-🔐 Manage their own recipe library via secure authentication.
+
+With a clean user experience, animated interface, and responsive design, this platform makes digital recipe management both practical and delightful.
 
 ### 🎯 Homepage Experience
 
@@ -73,10 +78,29 @@ A full-stack recipe sharing platform with authentication, dynamic content manage
 ## Installation Guide 💻
 
 1. Clone repository:
-
-```bash
-Uploading soon....
 ```
+git clone https://github.com/your-username/recipe-book.git
+cd recipe-book
+```
+2. Install Dependencies
+```
+npm install
+```
+3. Environment Setup
+- Create a .env file at root.
+
+- Add your Firebase config keys like:
+```
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+```
+
+4. Run the App
+```
+npm run dev
+```
+
 
 ## Project Structure 🗂️
 
