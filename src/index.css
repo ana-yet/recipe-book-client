@@ -5,17 +5,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #5e3a2b; /* Your Chocolate Brown */
-  --color-secondary: #e8ddcb; /* Your Creamy Beige */
-  --color-accent: #c93756; /* Your Raspberry Red */
-  --color-background: #faf6f2; /* Your Linen */
-  --color-content: #402e32; /* Your Dark Brown for text */
+  /* Light Mode Colors */
+  --color-primary: #4a7c59;
+  --color-secondary: #f8f4e3;
+  --color-accent: #e85d75;
 
-  /* dark colors */
-  --color-dark-primary: #e8ddcb;
-  --color-dark-secondary: #5e3a2b;
-  --color-dark-background: #211815;
-  --color-dark-content: #faf6f2;
+  --color-background: #f9f9f7;
+  --color-content: #333333;
 
   --font-primary: Playfair Display, serif;
 }

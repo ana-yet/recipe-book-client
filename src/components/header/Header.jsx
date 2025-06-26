@@ -1,13 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
-import { FaUserCircle } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaHome,
+  FaBookOpen,
+  FaPlusCircle,
+  FaBook,
+} from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { CiLight, CiLogout } from "react-icons/ci";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { GiCook } from "react-icons/gi";
 import { AuthContext } from "../../AuthProvider/AuthContext";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { MdOutlineDarkMode } from "react-icons/md";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,6 +24,21 @@ const Header = () => {
   const [isTransparent, setIsTransparent] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const userMenuRef = useRef(null);
+
+  // outside clicking close user menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,10 +49,8 @@ const Header = () => {
       }
     };
 
-    // Initial check
-    setIsTransparent(location.pathname === "/");
+    handleScroll();
 
-    // Add scroll listener for home page
     if (location.pathname === "/") {
       window.addEventListener("scroll", handleScroll);
     }
@@ -40,16 +60,35 @@ const Header = () => {
     };
   }, [location.pathname]);
 
+  const handleLogoutConfirmation = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out from RecipeBook",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#4a7c59",
+      cancelButtonColor: "#e85d75",
+      confirmButtonText: "Yes, logout!",
+      cancelButtonText: "Cancel",
+      background: darkMode ? "#1a1f1d" : "#f8f4e3",
+      color: darkMode ? "#ffffff" : "#333333",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser();
+      }
+    });
+  };
+
   const signOutUser = () => {
     userSignOut()
       .then(() => {
         Swal.fire({
           title: "Logged out successfully!",
           icon: "success",
-          draggable: true,
+          showConfirmButton: false,
           timer: 1500,
-          background: darkMode ? "bg-dark-background" : "bg-background",
-          color: darkMode ? "text-dark-content" : "text-content",
+          background: darkMode ? "#1a1f1d" : "#f8f4e3",
+          color: darkMode ? "#ffffff" : "#333333",
         });
         navigate("/login");
       })
@@ -60,122 +99,124 @@ const Header = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center">
+      <div className="flex justify-center p-4">
         <span className="loading loading-spinner text-accent"></span>
       </div>
     );
   }
 
+  const NavLinkWithIcon = ({ to, icon: Icon, text }) => (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-2 py-4 px-6 transition-colors ${
+          isActive
+            ? "bg-primary text-white dark:bg-primary/90 dark:text-white"
+            : `${
+                isTransparent
+                  ? "text-white hover:text-gray-200"
+                  : "text-secondary dark:text-white"
+              } hover:bg-primary hover:text-white dark:hover:bg-primary/90 dark:hover:text-white`
+        }`
+      }
+    >
+      <Icon className="text-lg text-current" />
+      <span>{text}</span>
+    </NavLink>
+  );
+
   const links = (
     <>
-      <NavLink
-        to={"/"}
-        className={({ isActive }) =>
-          `py-4 px-6 transition-colors ${
-            isActive
-              ? "bg-primary text-secondary dark:bg-dark-primary dark:text-dark-secondary"
-              : "text-content hover:bg-primary hover:text-secondary dark:text-dark-content dark:hover:bg-dark-primary dark:hover:text-dark-secondary"
-          }`
-        }
-      >
-        HOME
-      </NavLink>
-      <NavLink
-        to={"/allRecipes"}
-        className={({ isActive }) =>
-          `py-4 px-6 transition-colors ${
-            isActive
-              ? "bg-primary text-secondary dark:bg-dark-primary dark:text-dark-secondary"
-              : "text-content hover:bg-primary hover:text-secondary dark:text-dark-content dark:hover:bg-dark-primary dark:hover:text-dark-secondary"
-          }`
-        }
-      >
-        ALL RECIPES
-      </NavLink>
-      <NavLink
-        to={"/addRecipe"}
-        className={({ isActive }) =>
-          `py-4 px-6 transition-colors ${
-            isActive
-              ? "bg-primary text-secondary dark:bg-dark-primary dark:text-dark-secondary"
-              : "text-content hover:bg-primary hover:text-secondary dark:text-dark-content dark:hover:bg-dark-primary dark:hover:text-dark-secondary"
-          }`
-        }
-      >
-        ADD RECIPE
-      </NavLink>
-      <NavLink
-        to={"/my-recipes"}
-        className={({ isActive }) =>
-          `py-4 px-6 transition-colors ${
-            isActive
-              ? "bg-primary text-secondary dark:bg-dark-primary dark:text-dark-secondary"
-              : "text-content hover:bg-primary hover:text-secondary dark:text-dark-content dark:hover:bg-dark-primary dark:hover:text-dark-secondary"
-          }`
-        }
-      >
-        MY RECIPES
-      </NavLink>
+      <NavLinkWithIcon to="/" icon={FaHome} text="HOME" />
+      <NavLinkWithIcon to="/allRecipes" icon={FaBookOpen} text="ALL RECIPES" />
+      {user && (
+        <>
+          <NavLinkWithIcon
+            to="/addRecipe"
+            icon={FaPlusCircle}
+            text="ADD RECIPE"
+          />
+          <NavLinkWithIcon to="/my-recipes" icon={FaBook} text="MY RECIPES" />
+        </>
+      )}
     </>
   );
 
   return (
     <nav
-      className={`transition-all duration-300 shadow-md px-4 flex items-center justify-between w-full top-0 z-50 ${
+      className={`transition-all duration-300 shadow-md px-4 md:px-8 lg:px-20 flex items-center justify-between w-full top-0 z-50 ${
         isTransparent
-          ? "bg-transparent fixed text-secondary dark:text-dark-content"
+          ? "fixed bg-transparent text-white dark:text-white"
           : `sticky ${
-              darkMode
-                ? "bg-dark-background text-dark-content"
-                : "bg-background text-content"
+              darkMode ? "bg-gray-900 text-white" : "bg-primary text-white"
             }`
       }`}
     >
-      <div className="text-2xl font-bold secondary-font">RecipeBook</div>
+      <div className="flex items-center gap-1 text-2xl font-bold font-primary text-white">
+        <GiCook className="text-secondary" size={28} />
+        <span>
+          Recipe<span className="text-secondary">Book</span>
+        </span>
+      </div>
 
       <ul className="hidden md:flex items-center">{links}</ul>
 
       <div className="flex items-center gap-4">
         {user ? (
-          <div className="relative">
+          <div className="relative" ref={userMenuRef}>
             <div
               onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className={`w-10 h-10 overflow-hidden rounded-full ring-2 ring-offset-2 aspect-square cursor-pointer ${
+              className={`w-10 h-10 overflow-hidden rounded-full ring-2 ring-offset-2 aspect-square cursor-pointer transition-all duration-200 ${
                 darkMode
-                  ? "ring-dark-primary ring-offset-dark-background"
-                  : "ring-primary ring-offset-background"
+                  ? "ring-white ring-offset-gray-900"
+                  : "ring-white ring-offset-primary"
+              } ${
+                userMenuOpen
+                  ? "ring-4 transform scale-110"
+                  : "hover:ring-3 hover:transform hover:scale-105"
               }`}
             >
-              <img
-                src={user?.photoURL}
-                alt="User Avatar"
-                className="w-full h-full object-cover"
-              />
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="User Avatar"
+                  className="w-full h-full object-cover transition-transform duration-200 hover:scale-110"
+                />
+              ) : (
+                <FaUserCircle className="w-full h-full text-gray-200 hover:text-white" />
+              )}
             </div>
 
             {userMenuOpen && (
               <div
-                className={`absolute right-0 mt-2 w-48 rounded shadow-lg z-10 ${
+                className={`absolute right-0 mt-2 w-48 rounded-lg shadow-xl z-50 overflow-hidden transition-all duration-200 ease-in-out ${
                   darkMode
-                    ? "bg-dark-background border-dark-primary"
-                    : "bg-background border-primary"
-                } border`}
+                    ? "bg-gray-800 border border-gray-600"
+                    : "bg-primary border border-white/20"
+                }`}
+                style={{
+                  opacity: userMenuOpen ? 1 : 0,
+                  transform: userMenuOpen
+                    ? "translateY(0)"
+                    : "translateY(-10px)",
+                }}
               >
                 <div
-                  className={`px-4 py-2 border-b ${
-                    darkMode ? "border-dark-primary" : "border-primary"
+                  className={`px-4 py-3 border-b ${
+                    darkMode ? "border-gray-600" : "border-white/20"
                   }`}
                 >
-                  {user.displayName}
+                  <p className="text-white font-medium truncate">
+                    {user.displayName}
+                  </p>
+                  <p className="text-white/70 text-sm truncate">{user.email}</p>
                 </div>
                 <button
-                  onClick={() => signOutUser()}
-                  className="w-full text-left px-4 inline-flex items-center gap-1.5 py-2 hover:opacity-80 transition-opacity text-accent"
+                  onClick={handleLogoutConfirmation}
+                  className="w-full text-left px-4 py-3 flex items-center gap-2 hover:bg-white/10 transition-colors duration-200 text-white"
                 >
-                  <span>
-                    <CiLogout />
-                  </span>
-                  Logout
+                  <CiLogout className="text-lg" />
+                  <span>Logout</span>
                 </button>
               </div>
             )}
@@ -183,42 +224,45 @@ const Header = () => {
         ) : (
           <div className="hidden lg:flex gap-2">
             <Link
-              to={"login"}
-              className="btn hover:opacity-80 transition-opacity bg-primary text-secondary"
+              to={"/login"}
+              className="btn hover:opacity-90 transition-all duration-200 hover:scale-105 bg-white text-primary border-none flex items-center gap-2"
             >
+              <FaUserCircle className="text-primary" />
               Login
             </Link>
             <Link
-              to={"register"}
-              className="btn hover:opacity-80 transition-opacity bg-accent text-secondary"
+              to={"/register"}
+              className="btn hover:opacity-90 transition-all duration-200 hover:scale-105 bg-accent text-white border-none flex items-center gap-2"
             >
+              <FaUserCircle className="text-white" />
               Register
             </Link>
           </div>
         )}
 
-        <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          className="lg:hidden text-white hover:scale-110 transition-transform duration-200"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           {menuOpen ? <IoMdClose size={24} /> : <FiMenu size={24} />}
         </button>
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className={`p-2 rounded-full hover:opacity-80 transition-opacity ${
-            darkMode
-              ? "bg-dark-primary text-dark-secondary"
-              : "bg-primary text-secondary"
+          className={`p-2 rounded-full hover:opacity-90 transition-all duration-200 hover:scale-110 ${
+            darkMode ? "bg-white text-gray-900" : "bg-white text-primary"
           }`}
         >
-          {darkMode ? <CiLight /> : <MdOutlineDarkMode />}
+          {darkMode ? <CiLight size={20} /> : <MdOutlineDarkMode size={20} />}
         </button>
       </div>
 
       {menuOpen && (
         <div
-          className={`absolute right-0 mt-2 top-full flex flex-col rounded shadow-lg z-50 ${
+          className={`absolute right-0 mt-2 top-full flex flex-col rounded-lg shadow-xl z-50 overflow-hidden transition-all duration-200 ${
             darkMode
-              ? "bg-dark-background border-dark-primary"
-              : "bg-background border-primary"
-          } border`}
+              ? "bg-gray-800 border border-gray-600"
+              : "bg-primary border border-white/20"
+          }`}
         >
           {links}
         </div>

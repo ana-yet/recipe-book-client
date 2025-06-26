@@ -13,12 +13,11 @@ const Banner = () => {
       cta: "View Recipe",
     },
     {
-      image: " https://i.ibb.co/GQ2JpL4K/2.jpg",
+      image: "https://i.ibb.co/GQ2JpL4K/2.jpg",
       title: "Healthy Breakfast Ideas",
       description: "Start your day with nutritious and tasty meals",
       cta: "Explore Now",
     },
-
     {
       image: "https://i.ibb.co/3m6ks8cD/3.jpg",
       title: "Homemade Desserts",
@@ -41,7 +40,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="relative  md:max-h-2/5 overflow-hidden rounded-lg">
+    <div className="relative md:max-h-2/5 overflow-hidden rounded-lg">
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
@@ -52,28 +51,40 @@ const Banner = () => {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             />
-            <div className="absolute inset-0 bg-black/40" />
 
-            <div className="relative  h-[600px] flex items-end p-8 text-white">
-              <div className="max-w-2xl flex flex-col items-start ">
+            <div className="absolute inset-0 bg-black/60 dark:bg-black/50" />
+
+            <div className="relative h-[600px] flex items-end p-8 text-white dark:text-dark-content">
+              <div className="max-w-2xl flex flex-col items-start">
                 <Slide
-                  className="text-4xl font-bold secondary-font mb-4"
+                  className="md:text-4xl text-2xl font-bold secondary-font mb-4"
                   direction="down"
                 >
-                  {slide.title}
+                  {(() => {
+                    const words = slide.title.split(" ");
+                    const lastWord = words.pop();
+                    const restOfTitle = words.join(" ");
+                    return (
+                      <p className="font-primary">
+                        {restOfTitle}{" "}
+                        <span className="text-secondary">{lastWord}</span>
+                      </p>
+                    );
+                  })()}
                 </Slide>
+
                 <Fade
-                  className="text-xl mb-6"
+                  className="md:text-xl text-base mb-6 "
                   delay={1e3}
                   cascade
-                  damping={1e-1}
+                  damping={0.05}
                 >
                   {slide.description}
                 </Fade>
 
                 <Link
                   to={"/allRecipes"}
-                  className="bg-red-500 hover:bg-red-600 px-6 py-3 inline-block  rounded-full font-semibold transition-colors"
+                  className="bg-primary hover:bg-secondary/90 px-6 py-3 inline-block rounded-xl font-semibold transition-colors text-white"
                 >
                   {slide.cta}
                 </Link>
@@ -83,9 +94,10 @@ const Banner = () => {
         ))}
       </div>
 
+      {/* Navigation Arrows */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition-colors text-white"
       >
         <svg
           className="w-6 h-6"
@@ -104,7 +116,7 @@ const Banner = () => {
 
       <button
         onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-3 rounded-full transition-colors text-white"
       >
         <svg
           className="w-6 h-6"
@@ -121,6 +133,7 @@ const Banner = () => {
         </svg>
       </button>
 
+      {/* Slide Indicators */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button

@@ -24,7 +24,7 @@ const Home = () => {
       <section>
         <Banner />
       </section>
-      <section className="w-11/12 mx-auto md:w-9/12 ">
+      <section className="max-w-screen-2xl  mx-auto">
         <TopRecipe />
       </section>
       <section className="w-11/12 mx-auto my-14 md:my-16 ">
