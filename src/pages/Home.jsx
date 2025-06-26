@@ -24,10 +24,10 @@ const Home = () => {
       <section>
         <Banner />
       </section>
-      <section className="max-w-screen-2xl  mx-auto">
+      <section className="max-w-screen-2xl  mx-auto my-20 md:my-28">
         <TopRecipe />
       </section>
-      <section className="w-11/12 mx-auto my-14 md:my-16 ">
+      <section className="max-w-screen-2xl  mx-auto my-14 md:my-16 ">
         <Bachelor />
       </section>
       <section className="w-11/12 md:w-10/12 mx-auto my-14 md:my-16 ">

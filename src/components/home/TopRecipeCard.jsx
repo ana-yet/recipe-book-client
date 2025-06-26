@@ -7,7 +7,7 @@ const TopRecipeCard = ({ recipe }) => {
   const [likeCount] = useState(recipe.likes);
 
   return (
-    <div className=" rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-primary/20 dark:border-gray-700">
       <div className="relative">
         <img
           className="w-full h-48 object-cover"
@@ -19,18 +19,18 @@ const TopRecipeCard = ({ recipe }) => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
-        <span className="absolute top-3 right-3 bg-white/90 px-2 py-1 rounded-full text-xs font-medium text-gray-800 dark:text-gray-200 dark:bg-gray-500">
+        <span className="absolute top-3 right-3 bg-primary/90 px-2 py-1 rounded-full text-xs font-medium text-secondary dark:bg-gray-700 dark:text-secondary">
           {recipe.cuisine}
         </span>
       </div>
 
-      <div className="p-5 ">
+      <div className="p-5">
         <div className="flex justify-between items-start mb-3">
-          <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200 line-clamp-1 secondary-font">
+          <h1 className="text-xl font-semibold text-secondary font-primary dark:text-secondary line-clamp-1 secondary-font">
             {recipe.title}
           </h1>
           <button
-            className="text-pink-500 hover:text-pink-600 inline-flex justify-center items-center transition-colors"
+            className="text-accent hover:text-accent/80 inline-flex justify-center items-center transition-colors"
             aria-label="Like recipe"
           >
             <FaHeart />
@@ -42,12 +42,16 @@ const TopRecipeCard = ({ recipe }) => {
           <Link
             data-tooltip-id="details"
             to={`/recipe-details/${recipe._id}`}
-            className="flex items-center px-3 py-2 bg-gray-800  dark:bg-white/10 text-white dark:text-white/50 rounded-lg hover:bg-gray-700 transition-colors text-sm"
+            className="flex items-center px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm"
           >
             <FaEye className="mr-2" />
             View Details
           </Link>
-          <Tooltip place="top-start" id="details">
+          <Tooltip
+            place="top-start"
+            id="details"
+            className="!bg-primary !text-secondary"
+          >
             Click here for view more details
           </Tooltip>
         </div>
