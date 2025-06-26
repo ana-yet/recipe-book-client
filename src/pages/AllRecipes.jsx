@@ -29,8 +29,8 @@ const AllRecipes = () => {
     const recipeData = async () => {
       const url =
         selected === "All Cuisine"
-          ? "https://recipe-server-three-bay.vercel.app/recipe/"
-          : `https://recipe-server-three-bay.vercel.app/recipe/cuisine/${selected}`;
+          ? `${import.meta.env.VITE_serverApi}/recipe/`
+          : `${import.meta.env.VITE_serverApi}/recipe/cuisine/${selected}`;
       try {
         const res = await fetch(url);
         const result = await res.json();
@@ -69,7 +69,7 @@ const AllRecipes = () => {
       likes: currentLike.likes + 1,
     };
 
-    fetch(`https://recipe-server-three-bay.vercel.app/recipe/${id}`, {
+    fetch(`${import.meta.env.VITE_serverApi}/recipe/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

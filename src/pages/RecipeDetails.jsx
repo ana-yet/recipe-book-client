@@ -30,7 +30,7 @@ const RecipeDetails = () => {
       likes: recipe.likes + 1,
     };
 
-    fetch(`https://recipe-server-three-bay.vercel.app/recipe/${id}`, {
+    fetch(`${import.meta.env.VITE_serverApi}/recipe/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

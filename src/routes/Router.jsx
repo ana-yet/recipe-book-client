@@ -35,9 +35,7 @@ const router = createBrowserRouter([
       {
         path: "recipe-details/:id",
         loader: ({ params }) =>
-          fetch(
-            `https://recipe-server-three-bay.vercel.app/recipe/${params.id}`
-          ),
+          fetch(`${import.meta.env.VITE_serverApi}/${params.id}`),
         element: (
           <PrivateRoute>
             <RecipeDetails />

@@ -54,7 +54,7 @@ const RegisterForm = () => {
           creationTime: res.user.metadata.creationTime,
           lastSignInTime: res.user.metadata.lastSignInTime,
         };
-        fetch("https://recipe-server-three-bay.vercel.app/users", {
+        fetch(`${import.meta.env.VITE_serverApi}/users`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

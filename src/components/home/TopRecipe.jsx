@@ -11,7 +11,7 @@ const TopRecipe = () => {
 
   useEffect(() => {
     setLoad(true);
-    fetch("https://recipe-server-three-bay.vercel.app/top-recipes")
+    fetch(`${import.meta.env.VITE_serverApi}/top-recipes`)
       .then((res) => res.json())
       .then((data) => {
         setRecipeTop(data);
@@ -40,7 +40,7 @@ const TopRecipe = () => {
   return (
     <div>
       <div className="flex flex-col justify-center my-10">
-        <Slide className="flex gap-1 md:text-3xl text-2xl font-bold secondary-font justify-center  dark:text-white/80 ">
+        <Slide className="flex gap-1 md:text-3xl text-2xl font-bold secondary-font justify-center font-primary  dark:text-dark-primary ">
           <h1 className="flex gap-2">
             <ImFire className="text-red-500" />
             Top Recipe

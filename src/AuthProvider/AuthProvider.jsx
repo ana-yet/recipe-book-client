@@ -26,9 +26,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await fetch(
-          "https://recipe-server-three-bay.vercel.app/recipe"
-        );
+        const res = await fetch(`${import.meta.env.VITE_serverApi}/recipe`);
         const data = await res.json();
         setAllRecipes(data);
         setLoading(false);

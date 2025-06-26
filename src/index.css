@@ -4,10 +4,30 @@
 @plugin "daisyui";
 @custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  font-family: "Open Sans", sans-serif;
+@theme {
+  --color-primary: #5e3a2b; /* Your Chocolate Brown */
+  --color-secondary: #e8ddcb; /* Your Creamy Beige */
+  --color-accent: #c93756; /* Your Raspberry Red */
+  --color-background: #faf6f2; /* Your Linen */
+  --color-content: #402e32; /* Your Dark Brown for text */
+
+  /* dark colors */
+  --color-dark-primary: #e8ddcb;
+  --color-dark-secondary: #5e3a2b;
+  --color-dark-background: #211815;
+  --color-dark-content: #faf6f2;
+
+  --font-primary: Playfair Display, serif;
 }
 
-.secondary-font {
-  font-family: "Playfair Display", serif;
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-content);
+  }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #faf6f2;
 }

@@ -20,6 +20,7 @@ const Home = () => {
         <title>RecipeBook || Home</title>
         <meta name="description" content="Welcome to the home page" />
       </Helmet>
+
       <section>
         <Banner />
       </section>

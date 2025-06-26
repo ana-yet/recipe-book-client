@@ -39,7 +39,7 @@ const AddRecipe = () => {
     e.preventDefault();
     // console.log(form);
 
-    fetch("https://recipe-server-three-bay.vercel.app/recipe", {
+    fetch(`${import.meta.env.VITE_serverApi}/recipe`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
