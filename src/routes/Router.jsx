@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "recipe-details/:id",
         loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_serverApi}/${params.id}`),
+          fetch(`${import.meta.env.VITE_serverApi}/recipe/${params.id}`),
         element: (
           <PrivateRoute>
             <RecipeDetails />

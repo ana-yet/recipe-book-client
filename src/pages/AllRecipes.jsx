@@ -1,11 +1,11 @@
 import RecipesCard from "../components/allRecipes/RecipesCard";
-import { nanoid } from "nanoid";
 import { useContext, useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { AuthContext } from "../AuthProvider/AuthContext";
 import { toast } from "react-toastify";
 import SkeletonCard from "./SkeletonCard";
 import { Helmet } from "react-helmet-async";
+import SearchInput from "../components/allRecipes/SearchInput";
 
 const AllRecipes = () => {
   const { user } = useContext(AuthContext);
@@ -13,14 +13,16 @@ const AllRecipes = () => {
   const [selected, setSelected] = useState("All Cuisine");
   const [categoryData, setCategoryData] = useState([]);
   const [load, setLoad] = useState(true);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortField, setSortField] = useState("title");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const categories = ["Italian", "Mexican", "Indian", "Chinese", "Others"];
-  // console.log(categoryData);
 
   const toggleDropdown = () => setOpen(!open);
+
   const handleSelect = (category) => {
     setSelected(category);
-    // console.log(category);
     setOpen(false);
   };
 
@@ -34,34 +36,43 @@ const AllRecipes = () => {
       try {
         const res = await fetch(url);
         const result = await res.json();
-        setCategoryData(result);
+
+        // ✅ Sort the result
+        const sortedResult = [...result].sort((a, b) => {
+          if (sortField === "title") {
+            return sortOrder === "asc"
+              ? a.title.localeCompare(b.title)
+              : b.title.localeCompare(a.title);
+          } else if (sortField === "likes") {
+            return sortOrder === "asc" ? a.likes - b.likes : b.likes - a.likes;
+          } else if (sortField === "prepTime") {
+            const timeA = parseInt(a.prepTime) || 0;
+            const timeB = parseInt(b.prepTime) || 0;
+            return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+          }
+        });
+
+        setCategoryData(sortedResult);
         setLoad(false);
       } catch (error) {
         throw new Error(`Error fetching data: ${error}`);
       }
     };
     recipeData();
-  }, [selected]);
+  }, [selected, sortOrder, sortField]);
 
   if (load) {
     return (
-      <div className="grid mt-20 grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 md:w-10/12 w-11/12 mx-auto">
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
+      <div className="grid mt-20 grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 md:w-10/12 w-11/12 mx-auto">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
       </div>
     );
   }
 
   const updateLike = (id) => {
     const currentLike = categoryData.find((dat) => dat._id === id);
-    // console.log(currentLike);
     if (currentLike.email === user.email) {
       return toast.error("You can not like your own recipe");
     }
@@ -78,7 +89,6 @@ const AllRecipes = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         if (data.modifiedCount) {
           const updateData = categoryData.map((cat) =>
             cat._id === id ? { ...cat, ...totalLike } : cat
@@ -88,37 +98,51 @@ const AllRecipes = () => {
       });
   };
 
+  const onSearch = (data) => {
+    setSearchTerm(data.toLowerCase());
+  };
+
+  const filteredRecipes = categoryData.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchTerm)
+  );
+
   return (
     <div>
       <Helmet>
         <title>RecipeBook || All Recipes</title>
-        <meta name="description" content="Welcome to the home page" />
+        <meta name="description" content="Welcome to the All Recipes page" />
       </Helmet>
-      <div className="flex justify-center my-2">
-        <div className="relative inline-block text-left ">
+
+      <div className="w-full flex justify-center items-center gap-4 my-4 flex-wrap px-4">
+        <div className="flex-grow max-w-sm">
+          <SearchInput onSearch={onSearch} />
+        </div>
+
+        <div className="relative inline-block text-left">
           <button
             onClick={toggleDropdown}
-            className="inline-flex items-center justify-between w-56  px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-2xl shadow-md hover:bg-blue-50 transition-all"
+            className="inline-flex items-center justify-between px-4 py-2 text-sm font-medium text-white bg-primary border border-secondary rounded-xl shadow-md hover:bg-[#7b4d39] transition-all"
           >
             {selected}
-            <FiChevronDown className="w-4 h-4 ml-2 text-gray-500" />
+            <FiChevronDown className="w-4 h-4 ml-2 text-white" />
           </button>
 
           {open && (
-            <div className="absolute z-10 mt-2 w-56 bg-white dark:bg-gray-500  border border-gray-200  rounded-2xl shadow-xl">
-              {selected !== "All Cuisine" ? (
+            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-60 bg-secondary dark:bg-[#3d3d3d] border border-gray-200 rounded-2xl shadow-2xl z-10">
+              {selected !== "All Cuisine" && (
                 <button
                   onClick={() => handleSelect("All Cuisine")}
-                  className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-100 rounded-xl transition"
+                  className="w-full px-4 py-2 text-left text-sm text-white dark:text-gray-100 hover:bg-[#E8DDCB] hover:text-[#5E3A2B] dark:hover:bg-[#555] rounded-xl transition"
                 >
                   All Cuisine
                 </button>
-              ) : null}
+              )}
+
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => handleSelect(category)}
-                  className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-gray-300 dark:hover:text-gray-800 rounded-xl transition"
+                  className="w-full px-4 py-2 text-left text-sm text-white dark:text-gray-100 hover:bg-[#E8DDCB] hover:text-[#5E3A2B] dark:hover:bg-[#555] rounded-xl transition"
                 >
                   {category}
                 </button>
@@ -126,12 +150,41 @@ const AllRecipes = () => {
             </div>
           )}
         </div>
+
+        <select
+          value={sortField}
+          onChange={(e) => setSortField(e.target.value)}
+          className="px-4 py-2 text-sm text-white bg-primary border border-secondary rounded-xl shadow-md"
+        >
+          <option value="title">Title</option>
+          <option value="prepTime">Prep Time</option>
+          <option value="likes">Likes</option>
+        </select>
+
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="px-4 py-2 text-sm text-white bg-primary border border-secondary rounded-xl shadow-md focus:outline-none"
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
       </div>
 
-      <div className="w-11/12 md:w-10/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
-        {categoryData?.map((recipe) => (
-          <RecipesCard updateLike={updateLike} recipe={recipe} key={nanoid()} />
-        ))}
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 w-11/12">
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe) => (
+            <RecipesCard
+              updateLike={updateLike}
+              recipe={recipe}
+              key={recipe._id}
+            />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-lg text-gray-500">
+            No recipes found.
+          </p>
+        )}
       </div>
     </div>
   );

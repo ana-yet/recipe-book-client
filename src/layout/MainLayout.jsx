@@ -7,7 +7,9 @@ const MainLayout = () => {
   return (
     <div className="dark:bg-[#1A1F1D]">
       <Header />
-      <Outlet />
+      <div className="max-w-screen-2xl mx-auto">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
