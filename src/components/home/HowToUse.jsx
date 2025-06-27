@@ -37,7 +37,7 @@ const HowToUse = () => {
 
   return (
     <div>
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto  ">
         {/* --- Header Section --- */}
         <div className="text-center">
           <h2 className="text-base font-semibold text-primary dark:text-primary/90 tracking-wide uppercase">
