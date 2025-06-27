@@ -12,9 +12,10 @@ import {
 } from "react-icons/fa";
 
 import useAuth from "../../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const Sidebar = () => {
-  const { user, logout } = useAuth();
+  const { user, userSignOut } = useAuth();
 
   const navItems = [
     { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
@@ -33,6 +34,24 @@ const Sidebar = () => {
       icon: <FaUserCog />,
     },
   ];
+
+  const signOutUser = () => {
+    userSignOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logged out successfully!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          background: darkMode ? "#1a1f1d" : "#f8f4e3",
+          color: darkMode ? "#ffffff" : "#333333",
+        });
+        navigate("/login");
+      })
+      .catch(() => {
+        toast.error("Sign out unsuccessful!");
+      });
+  };
 
   return (
     <div className="inset-y-0 h-screen overflow-scroll bg-secondary dark:bg-gray-800 shadow-lg flex flex-col border-r border-primary/20 dark:border-gray-700">
@@ -84,7 +103,7 @@ const Sidebar = () => {
 
       <div className="p-4 border-t border-primary/20 dark:border-gray-700">
         <button
-          onClick={logout}
+          onClick={signOutUser}
           className="w-full flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary/10 dark:hover:bg-gray-700 dark:text-secondary transition-colors duration-200"
         >
           <span className="mr-3 text-lg">
