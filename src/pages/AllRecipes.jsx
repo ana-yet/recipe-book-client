@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import SkeletonCard from "./SkeletonCard";
 import { Helmet } from "react-helmet-async";
 import SearchInput from "../components/allRecipes/SearchInput";
+import RecipePageTitle from "../components/allRecipes/RecipePageTitle";
 
 const AllRecipes = () => {
   const { user } = useContext(AuthContext);
@@ -98,10 +99,6 @@ const AllRecipes = () => {
       });
   };
 
-  const onSearch = (data) => {
-    setSearchTerm(data.toLowerCase());
-  };
-
   const filteredRecipes = categoryData.filter((recipe) =>
     recipe.title.toLowerCase().includes(searchTerm)
   );
@@ -113,9 +110,11 @@ const AllRecipes = () => {
         <meta name="description" content="Welcome to the All Recipes page" />
       </Helmet>
 
+      <RecipePageTitle />
+
       <div className="w-full flex justify-center items-center gap-4 my-4 flex-wrap px-4">
         <div className="flex-grow max-w-sm">
-          <SearchInput onSearch={onSearch} />
+          <SearchInput setSearchTerm={setSearchTerm} />
         </div>
 
         <div className="relative inline-block text-left">
@@ -171,7 +170,7 @@ const AllRecipes = () => {
         </select>
       </div>
 
-      <div className="mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 w-11/12">
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 max-w-screen-2xl mb-16">
         {filteredRecipes.length > 0 ? (
           filteredRecipes.map((recipe) => (
             <RecipesCard
@@ -181,7 +180,7 @@ const AllRecipes = () => {
             />
           ))
         ) : (
-          <p className="col-span-full text-center text-lg text-gray-500">
+          <p className="col-span-full h-[calc(100vh-400px)] text-center items-center text-lg text-gray-500">
             No recipes found.
           </p>
         )}

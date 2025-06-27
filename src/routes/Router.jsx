@@ -9,6 +9,8 @@ import MyRecipes from "../pages/MyRecipes";
 import Login from "../pages/Login";
 import PrivateRoute from "../AuthProvider/PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage";
+import ContactUs from "../pages/ContactUs";
+import AboutUs from "../pages/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -43,20 +45,28 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "register",
-        element: <RegisterForm />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
         path: "my-recipes",
         element: (
           <PrivateRoute>
             <MyRecipes />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "contact-us",
+        Component: ContactUs,
+      },
+      {
+        path: "about-us",
+        Component: AboutUs,
+      },
+      {
+        path: "register",
+        element: <RegisterForm />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
     ],
   },

@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Helmet } from "react-helmet-async";
+import registerIllustration from "../assets/register.svg";
 
 const RegisterForm = () => {
   const { createUser, setUser, googleSignin } = useContext(AuthContext);
@@ -40,13 +41,12 @@ const RegisterForm = () => {
     setError("");
     if (!pattern.test(formData.password)) {
       return setError(
-        "Password must contain at least 6 characters, one uppercase letter, one lowercase letter,"
+        "Password must contain at least 6 characters, one uppercase letter, one lowercase letter"
       );
     }
 
     createUser(formData.email, formData.password)
       .then((res) => {
-        // console.log(res);
         const user = {
           email: res.user.email,
           photoUrl: formData.imageUrl,
@@ -62,31 +62,28 @@ const RegisterForm = () => {
           body: JSON.stringify(user),
         })
           .then((result) => {
-            if (!result.ok) {
-              throw new Error("Network response was not ok");
-            }
+            if (!result.ok) throw new Error("Network response was not ok");
             return result.json();
           })
           .then((data) => {
             if (data.insertedId) {
               setUser(user);
               Swal.fire({
-                title: "User Register successfully!",
+                title: "User Registered Successfully!",
                 icon: "success",
-                draggable: true,
+                background: "#f8f4e3",
                 timer: 1500,
               });
               navigate(from);
             }
-            // console.log("data after db", data);
           })
           .catch((error) => {
-            console.error("Error saving user data to database:", error);
+            console.error("Error saving user data:", error);
           });
       })
       .catch((error) => {
-        console.log("error", error);
-        toast.error("User Register unsuccessful!");
+        console.error("Registration error:", error);
+        toast.error("Registration unsuccessful!");
       });
   };
 
@@ -94,34 +91,43 @@ const RegisterForm = () => {
     googleSignin()
       .then(() => {
         Swal.fire({
-          title: "Login Successfully!",
+          title: "Login Successful!",
           icon: "success",
-          draggable: true,
+          background: "#f8f4e3",
           timer: 1500,
         });
         navigate(from);
       })
       .catch(() => {
-        toast.error("Login unsuccessful!");
+        toast.error("Google login failed!");
       });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-orange-50 px-4">
+    <div className="min-h-[calc(100vh-250px)] max-w-screen-2xl mx-auto my-4 rounded-2xl bg-secondary/10 flex flex-col lg:flex-row items-center justify-center p-4">
       <Helmet>
         <title>RecipeBook || Register</title>
-        <meta name="description" content="Welcome to the home page" />
+        <meta name="description" content="Create your RecipeBook account" />
       </Helmet>
+
+      <div className="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
+        <img
+          src={registerIllustration}
+          alt="Cooking illustration"
+          className="w-full max-w-md"
+        />
+      </div>
+
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <form onSubmit={handleSubmit}>
-          <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">
-            Sign Up for Recipe Book 🍲
+          <h2 className="text-2xl font-bold text-center text-primary mb-6">
+            Join RecipeBook 🍲
           </h2>
 
           <div className="mb-4">
             <label className="block text-gray-700 mb-1">Name</label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-2 focus-within:ring-2 focus-within:ring-orange-400">
-              <FaUser className="text-gray-400 mr-2" />
+            <div className="flex items-center border border-primary/30 rounded-lg p-2 focus-within:ring-2 focus-within:ring-primary/50">
+              <FaUser className="text-primary/80 mr-2" />
               <input
                 type="text"
                 name="name"
@@ -129,30 +135,32 @@ const RegisterForm = () => {
                 placeholder="Your full name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full outline-none"
+                className="w-full outline-none bg-transparent"
               />
             </div>
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Image URL</label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-2 focus-within:ring-2 focus-within:ring-orange-400">
-              <FaImage className="text-gray-400 mr-2" />
+            <label className="block text-gray-700 mb-1">
+              Profile Image URL
+            </label>
+            <div className="flex items-center border border-primary/30 rounded-lg p-2 focus-within:ring-2 focus-within:ring-primary/50">
+              <FaImage className="text-primary/80 mr-2" />
               <input
                 type="url"
                 name="imageUrl"
                 placeholder="https://example.com/photo.jpg"
                 value={formData.imageUrl}
                 onChange={handleChange}
-                className="w-full outline-none"
+                className="w-full outline-none bg-transparent"
               />
             </div>
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 mb-1">Email</label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-2 focus-within:ring-2 focus-within:ring-orange-400">
-              <FaEnvelope className="text-gray-400 mr-2" />
+            <div className="flex items-center border border-primary/30 rounded-lg p-2 focus-within:ring-2 focus-within:ring-primary/50">
+              <FaEnvelope className="text-primary/80 mr-2" />
               <input
                 type="email"
                 name="email"
@@ -160,15 +168,15 @@ const RegisterForm = () => {
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full outline-none"
+                className="w-full outline-none bg-transparent"
               />
             </div>
           </div>
 
           <div className="mb-6">
             <label className="block text-gray-700 mb-1">Password</label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-2 focus-within:ring-2 focus-within:ring-orange-400">
-              <FaLock className="text-gray-400 mr-2" />
+            <div className="flex items-center border border-primary/30 rounded-lg p-2 focus-within:ring-2 focus-within:ring-primary/50">
+              <FaLock className="text-primary/80 mr-2" />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -176,67 +184,65 @@ const RegisterForm = () => {
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full outline-none"
+                className="w-full outline-none bg-transparent"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-gray-500 ml-2 focus:outline-none"
+                className="text-primary/80 ml-2 focus:outline-none"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            {error ? <p className="text-red-500 text-sm ">{error}</p> : ""}
+            {error && <p className="text-accent text-sm mt-1">{error}</p>}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
+            className="w-full bg-primary hover:bg-primary/90 text-secondary font-semibold py-3 rounded-lg transition-colors duration-200"
           >
-            Register
+            Create Account
           </button>
         </form>
+
         <button
-          onClick={() => googleLogin()}
-          className="btn w-full my-2 bg-white text-black border-[#e5e5e5] hover:bg-gray-100"
+          onClick={googleLogin}
+          className="w-full mt-4 flex items-center justify-center gap-2 bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 py-3 rounded-lg transition-colors duration-200"
         >
           <svg
-            aria-label="Google logo"
             width="16"
             height="16"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
+            className="w-5 h-5"
           >
-            <g>
-              <path d="m0 0H512V512H0" fill="#fff"></path>
-              <path
-                fill="#34a853"
-                d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-              ></path>
-              <path
-                fill="#4285f4"
-                d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-              ></path>
-              <path
-                fill="#fbbc02"
-                d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-              ></path>
-              <path
-                fill="#ea4335"
-                d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-              ></path>
-            </g>
+            <path
+              fill="#EA4335"
+              d="M386 400c45-42 65-112 53-179H260v74h102c-4 24-18 44-38 57z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M90 341a192 192 0 00396 52l-62-48c-53 16-123-15-152-81z"
+            />
+            <path
+              fill="#4285F4"
+              d="M153 292c-8-25-8-48 0-73l-63-49a223 223 0 000 171z"
+            />
+            <path
+              fill="#34A853"
+              d="M153 219c22-69 116-109 179-50l55-54A223 223 0 0090 341z"
+            />
           </svg>
-          Login with Google
+          Continue with Google
         </button>
 
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Already have an account?
+        <p className="mt-6 text-center text-gray-600">
+          Already have an account?{" "}
           <Link
             to="/login"
-            className="text-orange-500 hover:underline font-medium"
+            className="text-accent hover:text-accent/80 font-medium transition-colors"
           >
-            Login
+            Sign in
           </Link>
         </p>
       </div>

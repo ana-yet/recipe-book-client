@@ -6,8 +6,9 @@ import {
   FaBookOpen,
   FaPlusCircle,
   FaBook,
+  FaUsers,
 } from "react-icons/fa";
-import { FiMenu } from "react-icons/fi";
+import { FiMail, FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { CiLight, CiLogout } from "react-icons/ci";
 import { MdOutlineDarkMode } from "react-icons/md";
@@ -129,6 +130,8 @@ const Header = () => {
     <>
       <NavLinkWithIcon to="/" icon={FaHome} text="HOME" />
       <NavLinkWithIcon to="/allRecipes" icon={FaBookOpen} text="ALL RECIPES" />
+      <NavLinkWithIcon to="contact-us" icon={FiMail} text="Contact Us" />
+      <NavLinkWithIcon to="about-us" icon={FaUsers} text="About Us" />
       {user && (
         <>
           <NavLinkWithIcon

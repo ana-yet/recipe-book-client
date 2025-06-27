@@ -1,22 +1,13 @@
-import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-const SearchInput = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    onSearch(searchTerm);
-  };
-
+const SearchInput = ({ setSearchTerm }) => {
   return (
-    <form onSubmit={handleSearch} className="relative mx-auto">
+    <form className="relative mx-auto">
       <div className="relative">
         <input
           type="text"
           placeholder="Search recipes..."
           className="w-full py-3 pl-4 pr-12 rounded-lg border text-white border-primary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-secondary dark:bg-gray-800 dark:text-secondary transition-all duration-200"
-          value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
