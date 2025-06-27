@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import {
   FaHome,
   FaPlus,
@@ -13,9 +13,11 @@ import {
 
 import useAuth from "../../../hook/useAuth";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const { user, userSignOut } = useAuth();
+  const navigate = useNavigate();
 
   const navItems = [
     { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
@@ -27,7 +29,6 @@ const Sidebar = () => {
       name: "All Recipe",
       icon: <FaCalendarAlt />,
     },
-
     {
       path: "/dashboard/profile",
       name: "Profile Settings",

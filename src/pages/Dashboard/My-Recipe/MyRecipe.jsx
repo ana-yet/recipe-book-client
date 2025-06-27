@@ -45,7 +45,7 @@ const MyRecipe = () => {
       });
   };
 
-  console.log(recipes);
+  // console.log(recipes);
 
   if (loading) {
     return <h1>loading...</h1>;

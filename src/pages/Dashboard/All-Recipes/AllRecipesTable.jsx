@@ -9,7 +9,7 @@ const AllRecipeTable = ({ recipes }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="w-full mx-auto p-6">
       <h2 className="text-primary text-3xl font-bold mb-6">Recipe List</h2>
 
       <div className="overflow-x-auto border border-primary/30 rounded-lg">
