@@ -5,6 +5,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { GiCook } from "react-icons/gi";
 import { Link, NavLink } from "react-router";
 
 const Footer = () => {
@@ -13,8 +14,11 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className=" flex flex-col md:flex-row justify-between items-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4 md:mb-0 secondary-font">
-              RecipeBook
+            <h1 className="flex items-center justify-center gap-1 text-2xl font-bold font-primary text-white">
+              <GiCook className="text-secondary" size={28} />
+              <span>
+                Recipe<span className="text-secondary">Book</span>
+              </span>
             </h1>
             <p className="text-gray-500 text-sm mt-2">
               Discover delicious recipes, cooking tips, and kitchen inspiration{" "}
