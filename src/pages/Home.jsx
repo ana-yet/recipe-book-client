@@ -3,10 +3,11 @@ import TopRecipe from "../components/home/TopRecipe";
 import Loader from "./Loader";
 import { AuthContext } from "../AuthProvider/AuthContext";
 import Banner from "../components/header/Banner";
-import Qurbani from "../components/home/Qurbani";
+import Qurbani from "../components/home/BeginnerRecipe";
 import Bachelor from "../components/home/Bachelor";
 import { Helmet } from "react-helmet-async";
 import HowToUse from "../components/home/HowToUse";
+import BeginnerRecipe from "../components/home/BeginnerRecipe";
 
 const Home = () => {
   const { loading } = useContext(AuthContext);
@@ -32,11 +33,11 @@ const Home = () => {
       <section className="max-w-screen-2xl  mx-auto my-20 md:my-28">
         <TopRecipe />
       </section>
-      <section className="max-w-screen-2xl  mx-auto my-14 md:my-16 ">
+      <section className="max-w-screen-2xl  mx-auto my-20 md:my-28 ">
         <Bachelor />
       </section>
-      <section className="w-11/12 md:w-10/12 mx-auto my-14 md:my-16 ">
-        <Qurbani />
+      <section className="max-w-screen-2xl  mx-auto my-20 md:my-28 ">
+        <BeginnerRecipe />
       </section>
     </div>
   );

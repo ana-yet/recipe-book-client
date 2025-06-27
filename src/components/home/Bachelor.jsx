@@ -23,7 +23,7 @@ const Bachelor = () => {
         <p className="border-2 border-accent w-14 mx-auto rounded-full my-2"></p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 ">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3  md:gap-5 ">
         {bachelorData.map((recipe) => (
           <BachelorCard recipe={recipe} key={nanoid()} />
         ))}
