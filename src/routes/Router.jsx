@@ -14,6 +14,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AddRecipe from "../pages/Dashboard/Add-Recipe/AddRecipe";
 import MyRecipe from "../pages/Dashboard/My-Recipe/MyRecipe";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import DashboardAllRecipes from "../pages/Dashboard/All-Recipes/DashboardAllRecipes";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "recipes",
+        element: (
+          <PrivateRoute>
+            <DashboardAllRecipes />
           </PrivateRoute>
         ),
       },
