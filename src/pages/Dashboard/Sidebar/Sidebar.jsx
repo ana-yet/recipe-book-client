@@ -20,21 +20,13 @@ const Sidebar = () => {
     { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
     { path: "/dashboard/add-recipe", name: "Add Recipe", icon: <FaPlus /> },
     { path: "/dashboard/my-recipes", name: "My Recipes", icon: <FaBook /> },
+
     {
-      path: "/dashboard/saved-recipes",
-      name: "Saved Recipes",
-      icon: <FaHeart />,
-    },
-    {
-      path: "/dashboard/meal-planner",
-      name: "Meal Planner",
+      path: "/dashboard/recipes",
+      name: "All Recipe",
       icon: <FaCalendarAlt />,
     },
-    {
-      path: "/dashboard/shopping-list",
-      name: "Shopping List",
-      icon: <FaShoppingBasket />,
-    },
+
     {
       path: "/dashboard/profile",
       name: "Profile Settings",
@@ -43,7 +35,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="   inset-y-0  w-64 bg-secondary dark:bg-gray-800 shadow-lg flex flex-col border-r border-primary/20 dark:border-gray-700">
+    <div className="inset-y-0 h-screen overflow-scroll bg-secondary dark:bg-gray-800 shadow-lg flex flex-col border-r border-primary/20 dark:border-gray-700">
       <div className="p-6 flex items-center space-x-3 border-b border-primary/20 dark:border-gray-700">
         <div className="w-10 h-10 rounded-full bg-primary/10 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
           {user?.photoURL ? (

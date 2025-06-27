@@ -10,18 +10,20 @@ import {
 import dayjs from "dayjs";
 import EditRecipeModal from "./EditRecipeModal";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const RecipeTable = ({ recipes, handleView, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const onDelete = (id) => {
     handleDelete(id);
   };
 
   const onView = (id) => {
-    handleView(id);
+    navigate(`/recipe-details/${id}`);
   };
 
   const onEdit = (recipe) => {

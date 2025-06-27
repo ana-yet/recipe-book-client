@@ -23,7 +23,6 @@ const EditRecipeModal = ({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-secondary dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-lg p-6 relative">
-        {/* Close Button */}
         <button
           onClick={() => setIsOpen(false)}
           className="absolute top-3 right-3 text-accent hover:text-accent/80"
@@ -92,7 +91,6 @@ const EditRecipeModal = ({
           </div>
         </form>
 
-        {/* Action Buttons */}
         <div className="flex justify-end gap-4 mt-6">
           <button
             type="button"

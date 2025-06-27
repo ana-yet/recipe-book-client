@@ -13,6 +13,7 @@ import Dashboard from "../layout/Dashboard";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import AddRecipe from "../pages/Dashboard/Add-Recipe/AddRecipe";
 import MyRecipe from "../pages/Dashboard/My-Recipe/MyRecipe";
+import Profile from "../pages/Dashboard/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyRecipe />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },
