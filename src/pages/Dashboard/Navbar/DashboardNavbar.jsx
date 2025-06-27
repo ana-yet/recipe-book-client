@@ -14,9 +14,9 @@ const DashboardNavbar = ({ toggleSidebar }) => {
         to="/"
         className="flex items-center text-primary dark:text-secondary text-xl font-bold gap-2"
       >
-        <GiCook className="text-secondary" size={28} />
+        <GiCook className="text-accent/50" size={28} />
         <span>
-          Recipe<span className="text-secondary">Book</span>
+          Recipe<span className="text-white">Book</span>
         </span>
       </Link>
 

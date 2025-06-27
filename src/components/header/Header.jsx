@@ -11,7 +11,7 @@ import {
 import { FiMail, FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { CiLight, CiLogout } from "react-icons/ci";
-import { MdOutlineDarkMode } from "react-icons/md";
+import { MdDashboard, MdOutlineDarkMode } from "react-icons/md";
 import { GiCook } from "react-icons/gi";
 import { AuthContext } from "../../AuthProvider/AuthContext";
 import { toast } from "react-toastify";
@@ -129,19 +129,14 @@ const Header = () => {
   const links = (
     <>
       <NavLinkWithIcon to="/" icon={FaHome} text="HOME" />
-      <NavLinkWithIcon to="/allRecipes" icon={FaBookOpen} text="ALL RECIPES" />
-      <NavLinkWithIcon to="contact-us" icon={FiMail} text="Contact Us" />
-      <NavLinkWithIcon to="about-us" icon={FaUsers} text="About Us" />
       {user && (
         <>
-          <NavLinkWithIcon
-            to="/addRecipe"
-            icon={FaPlusCircle}
-            text="ADD RECIPE"
-          />
-          <NavLinkWithIcon to="/my-recipes" icon={FaBook} text="MY RECIPES" />
+          <NavLinkWithIcon to="dashboard" icon={MdDashboard} text="Dashboard" />
         </>
       )}
+      <NavLinkWithIcon to="/all-recipe" icon={FaBookOpen} text="ALL RECIPES" />
+      <NavLinkWithIcon to="contact-us" icon={FiMail} text="Contact Us" />
+      <NavLinkWithIcon to="about-us" icon={FaUsers} text="About Us" />
     </>
   );
 

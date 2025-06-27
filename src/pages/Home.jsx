@@ -6,6 +6,7 @@ import Banner from "../components/header/Banner";
 import Qurbani from "../components/home/Qurbani";
 import Bachelor from "../components/home/Bachelor";
 import { Helmet } from "react-helmet-async";
+import HowToUse from "../components/home/HowToUse";
 
 const Home = () => {
   const { loading } = useContext(AuthContext);
@@ -24,6 +25,10 @@ const Home = () => {
       <section>
         <Banner />
       </section>
+      <section className="max-w-screen-2xl  mx-auto my-20 md:my-28">
+        <HowToUse />
+      </section>
+
       <section className="max-w-screen-2xl  mx-auto my-20 md:my-28">
         <TopRecipe />
       </section>

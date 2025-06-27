@@ -27,10 +27,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "allRecipes",
-        element: <AllRecipes />,
+        path: "all-recipe",
+        Component: AllRecipes,
       },
-
       {
         path: "recipe-details/:id",
         loader: ({ params }) =>
@@ -65,7 +64,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: DashboardHome,
+        element: <DashboardHome />,
       },
       {
         path: "add-recipe",
