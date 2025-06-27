@@ -1,71 +1,54 @@
-import { FiClock, FiPlus, FiZap, FiBookOpen, FiCoffee } from "react-icons/fi";
+import React from "react";
+import { Link } from "react-router";
+import { FaSignal, FaUtensils } from "react-icons/fa6";
 
 const BachelorCard = ({ recipe }) => {
+  const { _id, image, title, cuisine, difficulty } = recipe;
+
+  const placeholderImage = `https://placehold.co/600x400/D1FAE5/047857?text=${encodeURIComponent(
+    title
+  )}`;
+
   return (
-    <div className="dark:bg-gray-800 bg-white dark:text-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto my-4 border border-gray-200 dark:border-gray-700 transition-colors duration-300">
-      <div className="flex items-center gap-4 mb-6">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden transform hover:-translate-y-2 transition-all duration-300 ease-in-out group">
+      <div className="relative">
+        {/* image */}
         <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-20 h-20 rounded-lg object-cover border dark:border-gray-600"
+          className="w-full h-48 object-cover"
+          src={image}
+          alt={`A dish of ${title}`}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = placeholderImage;
+          }}
         />
-        <div>
-          <h2 className="text-2xl font-bold secondary-font mb-1">
-            {recipe.title}
-          </h2>
-          <div className="flex items-center gap-2 text-sm dark:text-gray-400">
-            <FiClock className="inline-block" />
-            <span>{recipe.totalTime}</span>
-            <span className="mx-1">•</span>
-            <span>{recipe.difficulty}</span>
-          </div>
+        {/* Difficulty  */}
+        <div className="absolute top-3 right-3 bg-primary/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+          <FaSignal />
+          <span>{difficulty}</span>
         </div>
       </div>
+      <div className="p-6">
+        {/* Cuisine  */}
+        <div className="flex items-center gap-2">
+          <FaUtensils className="text-gray-400" />
+          <p className="text-sm font-semibold text-gray-500 tracking-wide uppercase">
+            {cuisine}
+          </p>
+        </div>
 
-      <p className="dark:text-gray-300 mb-6 text-sm italic">
-        {recipe.description}
-      </p>
-
-      <div className="mb-6">
-        <h3 className="font-semibold mb-3 flex items-center gap-2">
-          <FiPlus className="w-4 h-4 dark:text-gray-400" />
-          Ingredients
+        {/* Recipe Title  */}
+        <h3 className="mt-2 text-xl font-bold text-primary truncate group-hover:text-primary-dark transition-colors">
+          {title}
         </h3>
-        <ul className="space-y-2 text-sm">
-          {recipe.ingredients.map((ingredient, index) => (
-            <li
-              key={index}
-              className="flex items-center gap-2 dark:text-gray-300"
-            >
-              <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
-              {`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`}
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      <div className="mb-6">
-        <h3 className="font-semibold mb-3 flex items-center gap-2">
-          <FiZap className="w-4 h-4 dark:text-gray-400" />
-          Instructions
-        </h3>
-        <ol className="space-y-3 text-sm list-decimal list-inside dark:text-gray-300">
-          {recipe.instructions.map((step, index) => (
-            <li key={index}>{step}</li>
-          ))}
-        </ol>
-      </div>
-
-      <div className="mt-6 flex flex-wrap gap-2">
-        {recipe.tags.map((tag, index) => (
-          <span
-            key={index}
-            className="px-2 py-1 text-xs rounded-full dark:bg-gray-700 dark:text-gray-300 flex items-center gap-1"
-          >
-            {tag === "breakfast" && <FiCoffee className="w-3 h-3" />}
-            {tag === "dinner" && <FiBookOpen className="w-3 h-3" />}#{tag}
-          </span>
-        ))}
+        {/* View Recipe Button */}
+        <Link
+          to={`/recipe-details/${_id}`}
+          className="block w-full text-center mt-6 bg-secondary text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-secondary-hover transition-colors duration-300"
+        >
+          View Recipe
+        </Link>
       </div>
     </div>
   );
