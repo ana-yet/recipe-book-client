@@ -62,5 +62,3 @@ const MyRecipes = () => {
     </div>
   );
 };
-
-export default MyRecipes;

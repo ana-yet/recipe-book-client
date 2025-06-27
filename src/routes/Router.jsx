@@ -1,16 +1,18 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
-import AddRecipe from "../pages/AddRecipe";
 import AllRecipes from "../pages/AllRecipes";
 import RecipeDetails from "../pages/RecipeDetails";
 import RegisterForm from "../pages/RegisterForm";
-import MyRecipes from "../pages/MyRecipes";
 import Login from "../pages/Login";
 import PrivateRoute from "../AuthProvider/PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage";
 import ContactUs from "../pages/ContactUs";
 import AboutUs from "../pages/AboutUs";
+import Dashboard from "../layout/Dashboard";
+import DashboardHome from "../pages/Dashboard/DashboardHome";
+import AddRecipe from "../pages/Dashboard/Add-Recipe/AddRecipe";
+import MyRecipe from "../pages/Dashboard/My-Recipe/MyRecipe";
 
 const router = createBrowserRouter([
   {
@@ -26,14 +28,7 @@ const router = createBrowserRouter([
         path: "allRecipes",
         element: <AllRecipes />,
       },
-      {
-        path: "addRecipe",
-        element: (
-          <PrivateRoute>
-            <AddRecipe />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "recipe-details/:id",
         loader: ({ params }) =>
@@ -41,14 +36,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <RecipeDetails />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "my-recipes",
-        element: (
-          <PrivateRoute>
-            <MyRecipes />
           </PrivateRoute>
         ),
       },
@@ -67,6 +54,32 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    Component: Dashboard,
+    children: [
+      {
+        index: true,
+        Component: DashboardHome,
+      },
+      {
+        path: "add-recipe",
+        element: (
+          <PrivateRoute>
+            <AddRecipe />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-recipes",
+        element: (
+          <PrivateRoute>
+            <MyRecipe />
+          </PrivateRoute>
+        ),
       },
     ],
   },
